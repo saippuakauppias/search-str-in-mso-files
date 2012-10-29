@@ -22,7 +22,7 @@ mso.py:
     class MSOFile(filename):
         __init__(filename)
         is_zipfile -> bool (check zipfile.is_zipfile)
-        open -> return document tree
+        open -> write in self.document xml tree
         get_text -> unicode
 
     class DOCXFile(MSOFile):
