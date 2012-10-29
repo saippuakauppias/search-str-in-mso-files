@@ -10,7 +10,7 @@ class MSOFile(object):
     def is_zipfile(self):
         return zipfile.is_zipfile(self.filename)
 
-    def read(self):
+    def open(self):
         raise NotImplementedError(
             'This method must be implemented by subclasses'
         )
@@ -19,3 +19,9 @@ class MSOFile(object):
         raise NotImplementedError(
             'This method must be implemented by subclasses'
         )
+
+
+class DOCXFile(MSOFile):
+
+    def open(self):
+        pass
