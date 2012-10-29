@@ -40,9 +40,9 @@ class DOCXFile(MSOFile):
 
     def get_text(self):
         paragraphs_list = []
-        for p_element in self.document.findall(DOCX_XPATH['paragraph']):
+        for p_element in self.document.iterfind(DOCX_XPATH['paragraph']):
             texts_list = []
-            for t_element in p_element.findall(DOCX_XPATH['text']):
+            for t_element in p_element.iterfind(DOCX_XPATH['text']):
                 if t_element.text:
                     texts_list.append(t_element.text)
             paragraphs_list.append(u''.join(texts_list))
