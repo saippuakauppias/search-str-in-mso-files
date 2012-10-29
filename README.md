@@ -22,7 +22,14 @@ mso.py:
     class MSOFile(filename):
         __init__(filename)
         is_zipfile -> bool (check zipfile.is_zipfile)
+        read -> return document tree
         get_text -> unicode
+
+    class DOCXFile(MSOFile):
+        new implementations of some methods
+
+    class XLSXFile(MSOFile):
+        new implementations of some methods
 
 find-in-dir.py:
 
