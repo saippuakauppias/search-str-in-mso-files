@@ -9,7 +9,7 @@ How it works
 
 Search string in many MS Office files (*.docx, *.xlsx) in directory:
 
-    $ python find_in_dir.py path/to/dir 'search string'
+    $ python find_in_dir.py -d path/to/dir -s 'search string'
     File '/path/to/dir/first_doc.docx' contains string
     File '/path/to/dir/last_table.xlsx' contains string
 
