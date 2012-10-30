@@ -12,6 +12,21 @@ DOCX_XPATH = {
 }
 
 
+XLSX_XPATH = {
+    'text':
+        './/{http://schemas.openxmlformats.org/spreadsheetml/2006/main}t',
+    'sheet':
+        './/{http://schemas.openxmlformats.org/spreadsheetml/2006/main}sheet'
+}
+
+
+XLSX_KEYS = {
+    'r:id':
+        '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id',
+    'sheetId': 'sheetId',
+}
+
+
 class MSOFile(object):
 
     def __init__(self, filename):
@@ -47,3 +62,38 @@ class DOCXFile(MSOFile):
                     texts_list.append(t_element.text)
             paragraphs_list.append(u''.join(texts_list))
         return u'\n'.join(paragraphs_list).encode('utf-8')
+
+
+class XLSXFile(MSOFile):
+
+    def open(self):
+        self.zipped_table = zipfile.ZipFile(self.filename)
+
+        xml_shared_strings = self.zipped_table.read('xl/sharedStrings.xml')
+        shared_strings = etree.fromstring(xml_shared_strings)
+        self.strings = self._parse_shared_strings(shared_strings)
+
+        xml_workbook = self.zipped_table.read('xl/workbook.xml')
+        workbook = etree.fromstring(xml_workbook)
+        self.sheets = self._parse_workbook(workbook)
+
+    def _parse_shared_strings(self, shared_strings):
+        strings_list = []
+        for t_element in shared_strings.iterfind(XLSX_XPATH['text']):
+            strings_list.append(t_element.text)
+        return strings_list
+
+    def _parse_workbook(self, workbook):
+        sheets_dict = {}
+        for sheet_element in workbook.iterfind(XLSX_XPATH['sheet']):
+            if sheet_element.get(XLSX_KEYS['r:id']):
+                sheet_id = sheet_element.get(XLSX_KEYS['r:id'])[3:]
+            else:
+                sheet_id = sheet_element.get(XLSX_KEYS['sheetId'])
+
+            sheet_name = ''
+            if sheet_element.get('name'):
+                sheet_name = sheet_element.get('name')
+
+            sheets_dict.update({sheet_id: sheet_name})
+        return sheets_dict
