@@ -9,7 +9,7 @@ How it works
 
 Search string in many MS Office files (*.docx, *.xlsx) in directory:
 
-    $ python find-in-dir.py path/to/dir 'search string'
+    $ python find_in_dir.py path/to/dir 'search string'
     File '/path/to/dir/first_doc.docx' contains string
     File '/path/to/dir/last_table.xlsx' contains string
 
@@ -33,7 +33,4 @@ mso.py:
 
 find-in-dir.py:
 
-    argparse?
-
-    mso_files_list(directory) -> list of filenames (also check filename.endswith(('.docx', '.xlsx')))
-    search_in_files(list_files) -> print filename if document text contains search string
+    optparse!
