@@ -16,7 +16,9 @@ XLSX_XPATH = {
     'text':
         './/{http://schemas.openxmlformats.org/spreadsheetml/2006/main}t',
     'sheet':
-        './/{http://schemas.openxmlformats.org/spreadsheetml/2006/main}sheet'
+        './/{http://schemas.openxmlformats.org/spreadsheetml/2006/main}sheet',
+    'value':
+        './/{http://schemas.openxmlformats.org/spreadsheetml/2006/main}v'
 }
 
 
@@ -76,6 +78,18 @@ class XLSXFile(MSOFile):
         xml_workbook = self.zipped_table.read('xl/workbook.xml')
         workbook = etree.fromstring(xml_workbook)
         self.sheets = self._parse_workbook(workbook)
+
+    def get_text(self):
+        data_list = self.strings + self.sheets.values()
+        for sheet_id in self.sheets.keys():
+            xml_sheet = self.zipped_table.read(
+                'xl/worksheets/sheet{0}.xml'.format(sheet_id)
+            )
+            sheet = etree.fromstring(xml_sheet)
+            for v_element in sheet.iterfind(XLSX_XPATH['value']):
+                data_list.append(v_element.text)
+#            data_list = list(set(data_list))
+        return ' '.join(data_list).encode('utf-8')
 
     def _parse_shared_strings(self, shared_strings):
         strings_list = []
