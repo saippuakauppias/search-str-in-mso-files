@@ -1,32 +1,7 @@
 import zipfile
 from lxml import etree
 
-
-DOCX_XPATH = {
-    'paragraph':
-        './/{http://schemas.openxmlformats.org/wordprocessingml/2006/main}p',
-    'text':
-        './/{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t',
-    'tab':
-        './/{http://schemas.openxmlformats.org/wordprocessingml/2006/main}tab'
-}
-
-
-XLSX_XPATH = {
-    'text':
-        './/{http://schemas.openxmlformats.org/spreadsheetml/2006/main}t',
-    'sheet':
-        './/{http://schemas.openxmlformats.org/spreadsheetml/2006/main}sheet',
-    'value':
-        './/{http://schemas.openxmlformats.org/spreadsheetml/2006/main}v'
-}
-
-
-XLSX_KEYS = {
-    'r:id':
-        '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id',
-    'sheetId': 'sheetId',
-}
+from mso_constants import DOCX_XPATH, XLSX_XPATH, XLSX_KEYS
 
 
 class MSOFile(object):
