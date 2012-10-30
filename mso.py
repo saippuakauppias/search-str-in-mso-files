@@ -64,7 +64,7 @@ class XLSXFile(MSOFile):
             for v_element in sheet.iterfind(XLSX_XPATH['value']):
                 data_list.append(v_element.text)
 #            data_list = list(set(data_list))
-        return ' '.join(data_list).encode('utf-8')
+        return u' '.join(data_list).encode('utf-8')
 
     def _parse_shared_strings(self, shared_strings):
         strings_list = []
@@ -80,7 +80,7 @@ class XLSXFile(MSOFile):
             else:
                 sheet_id = sheet_element.get(XLSX_KEYS['sheetId'])
 
-            sheet_name = ''
+            sheet_name = u''
             if sheet_element.get('name'):
                 sheet_name = sheet_element.get('name')
 
