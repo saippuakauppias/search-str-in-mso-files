@@ -7,6 +7,7 @@ from utils import fileslist
 def main(directory, search):
     # search = unicode(search).encode('utf-8')
     # TODO: upper case in filetype
+    result = []
     files = fileslist(directory, ('.docx', '.xlsx'))
     for filename in files:
         if filename.endswith('.docx'):
@@ -15,11 +16,17 @@ def main(directory, search):
             reader = XLSXFile(filename)
 
         if not reader.is_zipfile():
-            print "Error: File '{0}' is bad zip archive".format(filename)
+            err = "Error: File '{0}' is bad zip archive".format(filename)
+            result.append(err)
             continue
         reader.open()
         if search in reader.get_text():
-            print "File '{0}' contains string".format(filename)
+            result.append("File '{0}' contains string".format(filename))
+
+    if result:
+        print '\n'.join(result)
+    else:
+        print 'Search string not found'
 
 
 if __name__ == '__main__':
