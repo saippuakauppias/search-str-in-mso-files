@@ -61,16 +61,20 @@ class XLSXFile(MSOFile):
         self.sheets = self._parse_workbook(workbook)
 
     def get_text(self):
-        data_list = self.strings + self.sheets.values()
+        data_list = self.strings + self.sheets.values() + self._get_values()
+        return u' '.join(data_list).encode('utf-8')
+
+    def _get_values(self):
+        values_list = []
         for sheet_id in self.sheets.keys():
             xml_sheet = self.zipped_table.read(
                 'xl/worksheets/sheet{0}.xml'.format(sheet_id)
             )
             sheet = etree.fromstring(xml_sheet)
             for v_element in sheet.iterfind(XLSX_XPATH['value']):
-                data_list.append(v_element.text)
-#            data_list = list(set(data_list))
-        return u' '.join(data_list).encode('utf-8')
+                values_list.append(v_element.text)
+#            values_list = list(set(values_list))
+        return values_list
 
     def _parse_shared_strings(self, shared_strings):
         strings_list = []
