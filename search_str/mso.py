@@ -51,14 +51,8 @@ class XLSXFile(MSOFile):
 
     def open(self):
         self.zipped_table = zipfile.ZipFile(self.filename)
-
-        xml_shared_strings = self.zipped_table.read('xl/sharedStrings.xml')
-        shared_strings = etree.fromstring(xml_shared_strings)
-        self.strings = self._parse_shared_strings(shared_strings)
-
-        xml_workbook = self.zipped_table.read('xl/workbook.xml')
-        workbook = etree.fromstring(xml_workbook)
-        self.sheets = self._parse_workbook(workbook)
+        self._parse_shared_strings()
+        self._parse_workbook()
 
     def get_text(self):
         data_list = self.strings + self.sheets.values() + self._get_values()
@@ -76,13 +70,19 @@ class XLSXFile(MSOFile):
 #            values_list = list(set(values_list))
         return values_list
 
-    def _parse_shared_strings(self, shared_strings):
+    def _parse_shared_strings(self):
+        xml_shared_strings = self.zipped_table.read('xl/sharedStrings.xml')
+        shared_strings = etree.fromstring(xml_shared_strings)
+
         strings_list = []
         for t_element in shared_strings.iterfind(XLSX_XPATH['text']):
             strings_list.append(t_element.text)
-        return strings_list
+        self.strings = strings_list
 
-    def _parse_workbook(self, workbook):
+    def _parse_workbook(self):
+        xml_workbook = self.zipped_table.read('xl/workbook.xml')
+        workbook = etree.fromstring(xml_workbook)
+
         sheets_dict = {}
         for sheet_element in workbook.iterfind(XLSX_XPATH['sheet']):
             if sheet_element.get(XLSX_KEYS['r:id']):
@@ -95,4 +95,4 @@ class XLSXFile(MSOFile):
                 sheet_name = sheet_element.get('name')
 
             sheets_dict.update({sheet_id: sheet_name})
-        return sheets_dict
+        self.sheets = sheets_dict
