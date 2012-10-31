@@ -14,17 +14,18 @@ def main(directory, search):
             reader = XLSXFile(filename)
 
         if not reader.is_zipfile():
-            err = "Error: File '{0}' is bad zip archive".format(filename)
-            result.append(err)
+            result.append("\033[1mError\033[0m: File '\033[4m{0}\033[0m'"
+                          " is bad zip archive".format(filename))
             continue
         reader.open()
         if search in reader.get_text():
-            result.append("File '{0}' contains string".format(filename))
+            result.append("File '\033[4m{0}\033[0m' \033[1mcontains"
+                          " string\033[0m".format(filename))
 
     if result:
         print '\n'.join(result)
     else:
-        print 'Search string not found'
+        print '\033[1mSearch string not found\033[0m'
 
 
 if __name__ == '__main__':
