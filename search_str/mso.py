@@ -32,13 +32,19 @@ class DOCXFile(MSOFile):
 
     def get_text(self):
         paragraphs_list = []
-        for p_element in self.document.iterfind(DOCX_XPATH['paragraph']):
+        for p_element in self._get_paragraphs():
             texts_list = []
-            for t_element in p_element.iterfind(DOCX_XPATH['text']):
+            for t_element in self._get_text_for_paragraph(p_element):
                 if t_element.text:
                     texts_list.append(t_element.text)
             paragraphs_list.append(u''.join(texts_list))
         return u'\n'.join(paragraphs_list).encode('utf-8')
+
+    def _get_paragraphs(self):
+        return self.document.iterfind(DOCX_XPATH['paragraph'])
+
+    def _get_text_for_paragraph(self, paragraph):
+        return paragraph.iterfind(DOCX_XPATH['text'])
 
 
 class XLSXFile(MSOFile):
