@@ -5,8 +5,6 @@ from utils import fileslist
 
 
 def main(directory, search):
-    # search = unicode(search).encode('utf-8')
-    # TODO: upper case in filetype
     result = []
     files = fileslist(directory, ('.docx', '.xlsx'))
     for filename in files:

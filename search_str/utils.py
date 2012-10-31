@@ -13,5 +13,5 @@ def fileslist(dir, filetypes=None):
             result.append(filepath)
 
     if filetypes:
-        result = filter(lambda x: x.endswith(filetypes), result)
+        result = filter(lambda x: x.lower().endswith(filetypes), result)
     return result
