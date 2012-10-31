@@ -9,7 +9,7 @@ from ..mso import DOCXFile
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..')
 
 
-class SimpleTests(unittest.TestCase):
+class SimpleDOCXTests(unittest.TestCase):
 
     def setUp(self):
         filepath = os.path.join(PROJECT_ROOT, 'fixtures/docx/test.docx')
