@@ -1,7 +1,7 @@
 search-str-in-mso-files
 ======================
 
-Небольшой скрипт для поиска заданной строки во множестве файлов *.docx и *.xlsx формата.
+Небольшой скрипт для поиска заданной строки в *.docx и *.xlsx файлах.
 
 
 Установка
@@ -24,7 +24,7 @@ search-str-in-mso-files
     Активировать виртуальное окружение: $ workon testproject
     Установить зависимости: $ pip install -r requirements.txt
 
-По простому можно (но я бы не советовал засорять глобальный site-packages питона):
+По-простому (но я бы не советовал засорять глобальный site-packages питона):
 
     Установить pip: http://pypi.python.org/pypi/pip (http://www.pip-installer.org/en/latest/installing.html#using-the-installer)
     Скопировать куда-нибудь содержимое архива
@@ -41,7 +41,7 @@ search-str-in-mso-files
 
 Для запуска тестов нужно выполнить из командной строки:
 
-    python -m unittest tests
+    $ python -m unittest tests
 
 
 Поиск файлов
@@ -53,4 +53,4 @@ search-str-in-mso-files
 
 Например, можно поискать в фикстурах, которые прилагаются к тестам:
 
-    python search_str/find_in_dir.py -d 'search_str/fixtures/' -s 'Русский'
+    $ python search_str/find_in_dir.py -d 'search_str/fixtures/' -s 'Русский'
