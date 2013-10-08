@@ -54,3 +54,7 @@ search-str-in-mso-files
 Например, можно поискать в фикстурах, которые прилагаются к тестам:
 
     $ python search_str/find_in_dir.py -d 'search_str/fixtures/' -s 'Русский'
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/saippuakauppias/search-str-in-mso-files/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
