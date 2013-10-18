@@ -57,8 +57,3 @@ search-str-in-mso-files
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/saippuakauppias/search-str-in-mso-files/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/saippuakauppias/search-str-in-mso-files/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
